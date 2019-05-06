@@ -140,7 +140,7 @@ namespace Microsoft.Spark.CSharp
                 else
                 {
                     const string methodName = "RunFromAsync";
-                    var m = script.GetType().GetMethod(methodName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    var m = script.GetType().GetMethod(methodName, new Type[] { previousState.GetType(), typeof(CancellationToken) });
                     if (m != null)
                     {
                         endState = ((Task<ScriptState<object>>)m.Invoke(script, new object[] { previousState, default(CancellationToken) })).Result;
