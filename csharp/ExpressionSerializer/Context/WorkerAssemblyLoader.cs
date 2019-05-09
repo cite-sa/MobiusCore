@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SerializationHelpers.Context
 {
-    internal class WorkerAssemblyLoader : IAssemblyLoader
+    public class WorkerAssemblyLoader : IAssemblyLoader
     {
         private readonly List<Assembly> assemblies = new List<Assembly>();
         public IEnumerable<Assembly> GetAssemblies()
