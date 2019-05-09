@@ -1,0 +1,1 @@
+dotnet C:\Users\ikalyvas\workspace\Code\MobiusCore\csharp\Samples\Microsoft.Spark.CSharp\bin\Debug\netcoreapp2.2\CSharpWorker.dll %*
