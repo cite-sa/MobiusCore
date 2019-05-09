@@ -36,8 +36,6 @@ namespace Microsoft.Spark.CSharp.Examples
 
                 var rdd = sparkContext.Parallelize(values, slices);
 
-                CalculatePiUsingAnonymousMethod(numberOfItems, rdd);
-
                 CalculatePiUsingSerializedClassApproach(numberOfItems, rdd);
 
                 Logger.LogInfo("Completed calculating the value of Pi");
@@ -55,26 +53,10 @@ namespace Microsoft.Spark.CSharp.Examples
         private static void CalculatePiUsingSerializedClassApproach(int n, RDD<int> rdd)
         {
             var count = rdd
-                            .Map(new PiHelper().Execute)
+                            .Map((x)=> new PiHelper().Execute(x))
                             .Reduce((x, y) => x + y);
 
             Logger.LogInfo(string.Format("(serialized class approach) Pi is roughly {0}.", 4.0 * count / n));
-        }
-
-        private static void CalculatePiUsingAnonymousMethod(int n, RDD<int> rdd)
-        {
-            var count = rdd
-                            .Map(i =>
-                            {
-                                var random = new Random();
-                                var x = random.NextDouble() * 2 - 1;
-                                var y = random.NextDouble() * 2 - 1;
-
-                                return (x * x + y * y) < 1 ? 1 : 0;
-                            })
-                            .Reduce((x, y) => x + y);
-
-            Logger.LogInfo(string.Format("(anonymous method approach) Pi is roughly {0}.", 4.0 * count / n));
         }
 
         /// <summary>

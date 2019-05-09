@@ -62,3 +62,8 @@ csharp/.vs/SparkCLR/v16/Server/sqlite3/storage.ide-shm
 csharp/.vs/SparkCLR/v16/Server/sqlite3/storage.ide
 csharp/.vs/SparkCLR/v16/Server/sqlite3/db.lock
 csharp/.vs/SparkCLR/DesignTimeBuild/.dtbcache
+examples/.vs/Examples/v16/Server/sqlite3/storage.ide-wal
+examples/.vs/Examples/v16/Server/sqlite3/storage.ide-shm
+examples/.vs/Examples/v16/Server/sqlite3/storage.ide
+examples/.vs/Examples/v16/Server/sqlite3/db.lock
+examples/.vs/Examples/DesignTimeBuild/.dtbcache

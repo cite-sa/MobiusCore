@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WordCount": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\ikalyvas\\Desktop\\nbg-logs.sql"
+    }
+  }
+}
