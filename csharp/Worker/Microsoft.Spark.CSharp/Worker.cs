@@ -78,6 +78,7 @@ namespace Microsoft.Spark.CSharp
                 InitializeLogger();
                 logger.LogInfo("RunSimpleWorker ...");
                 PrintFiles();
+				LoadFiles();
                 //int javaPort = int.Parse(Console.ReadLine()); //reading port number written from JVM
 	            var javaPort = int.Parse(Environment.GetEnvironmentVariable("PYTHON_WORKER_FACTORY_PORT"));
 	            var secret = Environment.GetEnvironmentVariable("PYTHON_WORKER_FACTORY_SECRET");
@@ -389,8 +390,7 @@ namespace Microsoft.Spark.CSharp
                 var compilationDumpDir = SerDe.ReadString(networkStream);
                 if (Directory.Exists(compilationDumpDir))
                 {
-                    assemblyHandler.LoadAssemblies(Directory.GetFiles(compilationDumpDir, "ReplCompilation.*",
-                        SearchOption.TopDirectoryOnly));
+                    assemblyHandler.LoadAssemblies();
                 }
                 else
                 {
@@ -467,16 +467,21 @@ namespace Microsoft.Spark.CSharp
 
             logger.LogDebug("Files available in executor");
             logger.LogDebug("Location: {0}{1}{2}", folder, Environment.NewLine, outfiles.ToString());
-        }                
+        }
 
-        internal class SparkCLRAssemblyHandler
+		public static void LoadFiles()
+		{		
+			assemblyHandler.LoadAssemblies();
+		}
+
+		internal class SparkCLRAssemblyHandler
         {
             private readonly ConcurrentDictionary<string, Assembly> assemblyDict = new ConcurrentDictionary<string, Assembly>();
             private readonly ConcurrentDictionary<string, bool> loadedFiles = new ConcurrentDictionary<string, bool>();
-
-            public void LoadAssemblies(string[] files)
+			private readonly WorkerAssemblyLoader workerAssemblyLoader = new WorkerAssemblyLoader();
+            public void LoadAssemblies()
             {
-                foreach (var assembly in from f in files.Where(f => new FileInfo(f).Length > 0).Select(Path.GetFullPath) where loadedFiles.TryAdd(f, true) select Assembly.Load(File.ReadAllBytes(f)))
+                foreach (var assembly in workerAssemblyLoader.GetAssemblies())
                 {
                     if (!assemblyDict.ContainsKey(assembly.FullName))
                     {
