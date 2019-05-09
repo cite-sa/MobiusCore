@@ -1,4 +1,4 @@
-# Mobius: C# API for Spark
+# MobiusCore: C# API for Spark
 
 [MobiusCore](https://github.com/cite-sa/MobiusCore) is a port of [Mobius](https://github.com/Microsoft/Mobius) the opensource framework that provides C# language binding to [Apache Spark](https://spark.apache.org/) enabling the implementation of Spark driver program and data processing operations in the languages supported in the .NET framework like C# or F#. Mobius relied heavily on Delegate Serialization, a feature that was cut from .NET Core. In MobiusCore Delegates have been replaced by Linq Expressions, thus making it easier to Serialize the UDF's to the Mobius Workers. More details on this approach can be found [here](./Implementation.md) 
 
