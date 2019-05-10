@@ -9,7 +9,7 @@ using System.Text;
 
 namespace SerializationHelpers.Extensions.ExpressionNodes
 {
-    public class NewExpressionNode : ExpressionNode<NewExpression>
+    public class NewExpressionNode : Serialize.Linq.Nodes.NewExpressionNode
     {
         public NewExpressionNode() { }
 

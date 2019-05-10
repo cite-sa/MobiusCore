@@ -21,6 +21,15 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="log4net" Version="2.0.8" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+		<PackageReference Include="Razorvine.Pyrolite" Version="4.25.0" />
+		<PackageReference Include="Razorvine.Serpent" Version="1.29.0" />
+		<PackageReference Include="Serialize.Linq" Version="1.8.1" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+	</ItemGroup>
   
   <ItemGroup>
     <None Include="..\..\App.config">
