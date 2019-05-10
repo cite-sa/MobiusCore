@@ -7,9 +7,9 @@ using Microsoft.Spark.CSharp.Sql;
 
 namespace Tests.Common
 {
-    internal class RowHelper
-    {
-        public const string BasicJsonSchema = @"
+	internal class RowHelper
+	{
+		public const string BasicJsonSchema = @"
                 {
                   ""type"" : ""struct"",
                   ""fields"" : [{
@@ -30,7 +30,7 @@ namespace Tests.Common
                   } ]
                 }";
 
-        public const string ComplexJsonSchema = @"
+		public const string ComplexJsonSchema = @"
                 {
                   ""type"" : ""struct"",
                   ""fields"" : [ {
@@ -77,18 +77,23 @@ namespace Tests.Common
                   } ]
                 }";
 
-        public static readonly StructType BasicSchema;
-        public static readonly StructType ComplexSchema;
+		public static readonly StructType BasicSchema;
+		public static readonly StructType ComplexSchema;
 
-        static RowHelper()
-        {
-            BasicSchema = DataType.ParseDataTypeFromJson(BasicJsonSchema) as StructType;
-            ComplexSchema = DataType.ParseDataTypeFromJson(ComplexJsonSchema) as StructType;
-        }
+		static RowHelper()
+		{
+			BasicSchema = DataType.ParseDataTypeFromJson(BasicJsonSchema) as StructType;
+			ComplexSchema = DataType.ParseDataTypeFromJson(ComplexJsonSchema) as StructType;
+		}
 
-        public static Row BuildRowForBasicSchema(int seqId)
-        {
-            return new RowImpl(new object[] { seqId, "id " + seqId, "name" + seqId }, BasicSchema);
-        }
-    }
+		public static Row BuildRowForBasicSchema(int seqId)
+		{
+			return new RowImpl(new object[] { seqId, "id " + seqId, "name" + seqId }, BasicSchema);
+		}
+
+		public static Row BuildRowForComplexSchema(int seqId)
+		{
+			return new RowImpl(new object[] { new object[] { "Columbus", "Ohio" }, 43, "123", "Bill", new string[] { "Tel1", "Tel2" } }, ComplexSchema);
+		}
+	}
 }

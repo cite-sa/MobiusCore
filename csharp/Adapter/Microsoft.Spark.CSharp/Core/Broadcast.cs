@@ -83,6 +83,7 @@ namespace Microsoft.Spark.CSharp.Core
         [NonSerialized]
         private bool valueLoaded = false;
 
+		internal Broadcast() { }
         internal Broadcast(SparkContext sparkContext, T value)
         {
             this.value = value;

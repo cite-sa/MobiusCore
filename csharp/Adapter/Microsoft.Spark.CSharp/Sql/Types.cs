@@ -23,11 +23,13 @@ namespace Microsoft.Spark.CSharp.Sql
 	/// The base type of all Spark SQL data types.
 	/// </summary>
 	[Serializable]
+	[DataContract]
 	public abstract class DataType
 	{
 		/// <summary>
 		/// Trim "Type" in the end from class name, ToLower() to align with Scala.
 		/// </summary>
+		[DataMember]
 		public string TypeName
 		{
 			get { return NormalizeTypeName(GetType().Name); }
@@ -36,6 +38,7 @@ namespace Microsoft.Spark.CSharp.Sql
 		/// <summary>
 		/// return TypeName by default, subclass can override it
 		/// </summary>
+		[DataMember]
 		public virtual string SimpleString
 		{
 			get { return TypeName; }
@@ -44,11 +47,13 @@ namespace Microsoft.Spark.CSharp.Sql
 		/// <summary>
 		/// return only type: TypeName by default, subclass can override it
 		/// </summary>
+		[DataMember]
 		internal virtual object JsonValue { get { return TypeName; } }
 
 		/// <summary>
 		/// The compact JSON representation of this data type.
 		/// </summary>
+		[DataMember]
 		public string Json
 		{
 			get
@@ -285,15 +290,18 @@ namespace Microsoft.Spark.CSharp.Sql
 	/// The data type for collections of multiple values. 
 	/// </summary>
 	[Serializable]
+	[DataContract]
 	public class ArrayType : ComplexType
 	{
 		/// <summary>
 		/// Gets the DataType of each element in the array
 		/// </summary>
+		[DataMember]
 		public DataType ElementType { get { return elementType; } }
 		/// <summary>
 		/// Returns whether the array can contain null (None) values
 		/// </summary>
+		[DataMember]
 		public bool ContainsNull { get { return containsNull; } }
 
 		/// <summary>
@@ -343,7 +351,10 @@ namespace Microsoft.Spark.CSharp.Sql
 			return this;
 		}
 
+		[DataMember]
 		private DataType elementType;
+
+		[DataMember]
 		private bool containsNull;
 	}
 
@@ -374,23 +385,28 @@ namespace Microsoft.Spark.CSharp.Sql
 	/// A field inside a StructType.
 	/// </summary>
 	[Serializable]
+	[DataContract]
 	public class StructField : ComplexType
 	{
 		/// <summary>
 		/// The name of this field.
 		/// </summary>
+		[DataMember]
 		public string Name { get { return name; } }
 		/// <summary>
 		/// The data type of this field.
 		/// </summary>
+		[DataMember]
 		public DataType DataType { get { return dataType; } }
 		/// <summary>
 		/// Indicates if values of this field can be null values.
 		/// </summary>
+		[DataMember]
 		public bool IsNullable { get { return isNullable; } }
 		/// <summary>
 		/// The metadata of this field. The metadata should be preserved during transformation if the content of the column is not modified, e.g, in selection. 
 		/// </summary>
+		[DataMember]
 		public JObject Metadata { get { return metadata; } }
 
 		/// <summary>
@@ -456,6 +472,7 @@ namespace Microsoft.Spark.CSharp.Sql
 	/// This is the data type representing a Row
 	/// </summary>
 	[Serializable]
+	[DataContract]
 	public class StructType : ComplexType
 	{
 		/// <summary>
@@ -506,7 +523,6 @@ namespace Microsoft.Spark.CSharp.Sql
 					Expression<Func<DataType, int, StructType>> helper = (helperx, helpery) => new ConvertArrayTypeToStructTypeFuncHelper().Execute(helperx, helpery);
 					var elementType = (field.DataType as ArrayType).ElementType;
 					funcs[index] = structTypeHelpex => new StructTypeHelper(field, elementType, helper).Execute((object)structTypeHelpex);
-
 				}
 				else if (field.DataType is MapType)
 				{
@@ -515,7 +531,7 @@ namespace Microsoft.Spark.CSharp.Sql
 				}
 				else if (field.DataType is StructType)
 				{
-					funcs[index] = x => x as StructType != null ? new RowImpl(x as StructType, field.DataType as StructType) : null;
+					funcs[index] = x => (object)x != null ? new RowImpl((object)x , field.DataType as StructType) : null;
 				}
 				else
 				{
