@@ -46,19 +46,12 @@ namespace Microsoft.Spark.CSharp.Examples
                     var countByLogLevelAndTime = stream
                                                     .Map(tuple => Encoding.UTF8.GetString(tuple.Item2))
                                                     .Filter(line => line.Contains(","))
-                                                    .Map(line => line.Split(','))
+                                                    .Map(line => line.Split(new char[] { ',' }))
                                                     .Map(columns => new Tuple<string, int>(string.Format("{0},{1}", columns[0], columns[1]), 1))
                                                     .ReduceByKeyAndWindow((x, y) => x + y, (x, y) => x - y, windowDurationInSecs, slideDurationInSecs, 3)
                                                     .Map(logLevelCountPair => string.Format("{0},{1}", logLevelCountPair.Item1, logLevelCountPair.Item2));
 
-                    countByLogLevelAndTime.ForeachRDD(countByLogLevel =>
-                    {
-                        countByLogLevel.SaveAsTextFile(string.Format("{0}/{1}", appOutputPath, Guid.NewGuid()));
-                        foreach (var logCount in countByLogLevel.Collect())
-                        {
-                            Console.WriteLine(logCount);
-                        }
-                    });
+                    countByLogLevelAndTime.ForeachRDD(countByLogLevel => new SparkClrKafkaExample().ForEachHelper(countByLogLevel, appOutputPath));
 
                     return ssc;
                 });
@@ -66,5 +59,14 @@ namespace Microsoft.Spark.CSharp.Examples
             sparkStreamingContext.Start();
             sparkStreamingContext.AwaitTermination();
         }
+
+		public void ForEachHelper(RDD<string> countByLogLevel, String appOutputPath)
+		{
+			countByLogLevel.SaveAsTextFile(string.Format("{0}/{1}", appOutputPath, Guid.NewGuid()));
+			foreach (var logCount in countByLogLevel.Collect())
+			{
+				Console.WriteLine(logCount);
+			}
+		}
     }
 }

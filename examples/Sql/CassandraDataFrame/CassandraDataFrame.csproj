@@ -45,6 +45,10 @@
       <HintPath>..\..\..\csharp\Adapter\Microsoft.Spark.CSharp\bin\Debug\netcoreapp2.2\Microsoft.Spark.CSharp.Adapter.dll</HintPath>
     </Reference>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
