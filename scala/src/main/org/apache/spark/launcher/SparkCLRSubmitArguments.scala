@@ -351,7 +351,7 @@ class SparkCLRSubmitArguments(
         "Please specify one with a zip file or a directory)")
     }
 
-    if (mainExecutable == null || !mainExecutable.toLowerCase().endsWith(".exe")) {
+    if (mainExecutable == null) {
       printErrorAndExit("No main executable found; please specify one with --exe")
     }
 

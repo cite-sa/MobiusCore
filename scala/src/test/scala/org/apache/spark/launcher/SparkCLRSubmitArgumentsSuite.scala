@@ -82,17 +82,6 @@ class SparkCLRSubmitArgumentsSuite extends SparkCLRFunSuite with Matchers with T
     testPrematureExit(clArgs, "No main executable found")
   }
 
-  test("handle option --exe specified but does not end with .exe") {
-    val clArgs = Array(
-      "--name", "myApp",
-      "--exe", "myApp",
-      "user_driver.zip",
-      "some",
-      "--weird", "args")
-
-    testPrematureExit(clArgs, "No main executable found")
-  }
-
   test("handle no primary resource found") {
     val clArgs = Array(
       "--name", "myApp",
