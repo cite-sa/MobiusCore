@@ -486,11 +486,7 @@ namespace Microsoft.Spark.CSharp
                     if (!assemblyDict.ContainsKey(assembly.FullName))
                     {
                         assemblyDict[assembly.FullName] = assembly;
-                    }
-                    else
-                    {
-                        Console.Error.WriteLine("Already loaded assembly " + assembly.FullName);
-                    }
+                    }                    
                 }
             }
 

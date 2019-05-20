@@ -1,0 +1,1 @@
+dotnet path\to\bin\folder\CSharpWorker.dll %*

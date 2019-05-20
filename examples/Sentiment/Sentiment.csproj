@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<Platforms>x64</Platforms>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="CSharpWorker">
+      <HintPath>..\..\csharp\Worker\Microsoft.Spark.CSharp\bin\Debug\netcoreapp2.2\CSharpWorker.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Spark.CSharp.Adapter">
+      <HintPath>..\..\csharp\Adapter\Microsoft.Spark.CSharp\bin\Debug\netcoreapp2.2\Microsoft.Spark.CSharp.Adapter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="1.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Razorvine.Pyrolite" Version="4.25.0" />
+    <PackageReference Include="Razorvine.Serpent" Version="1.29.0" />
+    <PackageReference Include="Serialize.Linq" Version="1.8.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="csharpworkerrunner.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

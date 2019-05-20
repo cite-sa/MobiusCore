@@ -8,25 +8,33 @@ using System.Text;
 
 namespace SerializationHelpers.Context
 {
-    public class WorkerAssemblyLoader : IAssemblyLoader
-    {
-        private readonly List<Assembly> assemblies = new List<Assembly>();
-        public IEnumerable<Assembly> GetAssemblies()
-        {
-            if (assemblies.Count == 0) ResolveAssemblies();
-            return assemblies;
-        }
+	public class WorkerAssemblyLoader : IAssemblyLoader
+	{
+		private readonly List<Assembly> assemblies = new List<Assembly>();
 
-        private void ResolveAssemblies()
-        {
-            var files = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory).Select(Path.GetFileName).ToArray();
+		public IEnumerable<Assembly> GetAssemblies()
+		{
+			if (assemblies.Count == 0) ResolveAssemblies();
+			return assemblies;
+		}
 
-            var asseblyNames = AppDomain.CurrentDomain.GetAssemblies().Select(x => x.GetName().Name).ToList();
-            var dlls = files.Where(x => x.EndsWith(".dll") /*asseblyNames.All(y=> !x.StartsWith(y))*/);            
-            foreach (var dll in dlls)
-            {
-                assemblies.Add(Assembly.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dll)));
-            }           
-        }
-    }
+		private void ResolveAssemblies()
+		{
+			var files = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*", SearchOption.AllDirectories).Select(Path.GetFullPath).ToArray();
+
+			var asseblyNames = AppDomain.CurrentDomain.GetAssemblies().Select(x => x.GetName().Name).ToList();
+			var dlls = files.Where(x => x.EndsWith(".dll") /*asseblyNames.All(y=> !x.StartsWith(y))*/);
+			foreach (var dll in dlls)
+			{
+				try
+				{
+					var assembly = Assembly.LoadFrom(dll);
+					assemblies.Add(assembly);
+				}
+				catch (Exception ex)
+				{
+				}
+			}
+		}
+	}
 }

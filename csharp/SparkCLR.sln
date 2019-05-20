@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReplTest", "ReplTest\ReplTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerializationHelpers", "ExpressionSerializer\SerializationHelpers.csproj", "{5F21A74C-5BAA-4931-8EAA-228A1A65EB6A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serialize.Linq", "..\..\Serialize.Linq\src\Serialize.Linq\Serialize.Linq.csproj", "{FD480132-F949-4B1E-A81C-0445A7235B58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Optimize Size|Any CPU = Debug Optimize Size|Any CPU
@@ -125,6 +127,14 @@ Global
 		{5F21A74C-5BAA-4931-8EAA-228A1A65EB6A}.Release Optimize Size|Any CPU.Build.0 = Release|Any CPU
 		{5F21A74C-5BAA-4931-8EAA-228A1A65EB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F21A74C-5BAA-4931-8EAA-228A1A65EB6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Debug Optimize Size|Any CPU.ActiveCfg = Debug Optimize Size|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Debug Optimize Size|Any CPU.Build.0 = Debug Optimize Size|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Release Optimize Size|Any CPU.ActiveCfg = Release Optimize Size|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Release Optimize Size|Any CPU.Build.0 = Release Optimize Size|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD480132-F949-4B1E-A81C-0445A7235B58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
